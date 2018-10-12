@@ -53,13 +53,27 @@ void DrawInterWindow::onKeyPress(XEvent& event) {
 	redraw();
 }
 
-/*void DrawInterWindow::mouseButtonPress(Xevent& event) {
-	curMousePos = R3Point(event.xbutton.x, event.xbutton.y);
+void DrawInterWindow::onButtonPress(XEvent& event) {
+	curMousePos = I2Point(event.xbutton.x, event.xbutton.y);
 }
 
-void DrawInterWindow::onButtonMotion(Xevent& event) {
-	
-}*/
+void DrawInterWindow::onMotionNotify(XEvent& event) {
+	if (event.xmotion.state & Button1Mask) {
+		I2Point oldMousePos = curMousePos;
+		curMousePos.x = event.xbutton.x;
+		curMousePos.y = event.xbutton.y;
+		int dx = curMousePos.x - oldMousePos.x;
+		int dy = curMousePos.y - oldMousePos.y;
+		Rotation E;
+		R3Point Oz(0, 0, 1);
+		R3Point Oy(0, 1, 0);
+		double phi = M_PI / 180;
+		curRot = E.rotate(Oz, dx * phi) * curRot;
+		curRot = E.rotate(Oy, dy * phi) * curRot;
+		redraw();
+		draw();
+	}
+}
 
 void DrawInterWindow::draw() {
 	setBackground("LightGray");

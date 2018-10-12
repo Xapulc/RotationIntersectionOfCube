@@ -34,7 +34,8 @@ bool GWindow::getNextEvent(XEvent& e) {
         | KeyPressMask | PointerMotionMask
         | StructureNotifyMask       // For resize event
         | SubstructureNotifyMask
-        | FocusChangeMask;
+        | FocusChangeMask
+        | ButtonMotionMask;
     return (
         XCheckMaskEvent(m_Display, eventMask, &e) != 0 ||
         XCheckTypedEvent(m_Display, ClientMessage, &e) != 0

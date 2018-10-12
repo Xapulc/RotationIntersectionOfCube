@@ -9,7 +9,7 @@
 class DrawInterWindow: public GWindow {
 private:
 	InterPlane plane;
-	R3Point curMousePos;
+	I2Point curMousePos;
 	Rotation curRot;
 	I2Point project(R3Point &pt);
 	I2Point winSize = I2Point(getWindowRect().width(), getWindowRect().height());
@@ -17,7 +17,8 @@ private:
 public:
 	virtual void onExpose(XEvent& event);
 	virtual void onKeyPress(XEvent& event);
-	//virtual void onButtonMotion(XEvent& event);
+	virtual void onMotionNotify(XEvent& event);
+	virtual void onButtonPress(XEvent& event);
 	
 	void setPlane(const InterPlane &plane);
 	

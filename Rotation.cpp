@@ -84,6 +84,25 @@ R3Point Rotation::operator()(R3Point& pt) {
 	return res;
 }
 
+Rotation Rotation::inverse() {
+	auto **matrix = new double*[3];
+    matrix[0] = new double[3]
+            {(*this)[1][1] * (*this)[2][2] - (*this)[1][2] * (*this)[2][1],
+			 -((*this)[1][0] * (*this)[2][2] - (*this)[1][2] * (*this)[2][0]),
+			 (*this)[1][0] * (*this)[2][1] - (*this)[1][1] * (*this)[2][0]};
+    matrix[1] = new double[3]
+            {-((*this)[0][1] * (*this)[2][2] - (*this)[0][2] * (*this)[2][1]),
+			 (*this)[0][0] * (*this)[2][2] - (*this)[0][2] * (*this)[2][0],
+			 -((*this)[0][0] * (*this)[2][1] - (*this)[0][1] * (*this)[2][1])};
+    matrix[2] = new double[3]
+            {(*this)[0][1] * (*this)[1][2] - (*this)[0][2] * (*this)[1][1],
+			 -((*this)[0][0] * (*this)[1][2] - (*this)[0][2] * (*this)[1][0]),
+			 (*this)[0][0] * (*this)[1][1] - (*this)[0][1] * (*this)[1][0]};
+
+    Rotation res(matrix);
+    return res;
+}
+
 void Rotation::print() {
     std::cout << elems[0][0] << " " << elems[0][1] << " " << elems[0][2] << std::endl;
     std::cout << elems[1][0] << " " << elems[1][1] << " " << elems[1][2] << std::endl;
