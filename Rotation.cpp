@@ -129,10 +129,24 @@ Rotation Rotation::rotate(R3Point& vct, double phi) {
 
 }
 
-Rotation Rotation::inrease(double alpha) {
+Rotation& Rotation::increase(double alpha) {
+    if (alpha <= 0) {
+        printf("Wrong alpha: %lf\n", alpha);
+        return (*this);
+    }
+
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
             (*this)[i][j] *= alpha;
 
 	return (*this);
+}
+
+Rotation& Rotation::decrease(double alpha) {
+    if (alpha <= 0) {
+        printf("Wrong alpha: %lf\n", alpha);
+        return (*this);
+    }
+
+    return increase(1/ alpha);
 }

@@ -21,7 +21,8 @@ class Rotation {
 		double* operator()(double *vct);
 		R3Point operator()(R3Point& pt);
 
-		Rotation inrease(double alpha);
+		Rotation& increase(double alpha);
+		Rotation& decrease(double alpha);
 		Rotation inverse();
 		Rotation rotate(R3Point& vct, double phi);
 		void print();

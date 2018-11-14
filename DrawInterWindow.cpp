@@ -53,9 +53,9 @@ void DrawInterWindow::onKeyPress(XEvent& event) {
 			curRot = E.rotate(Oy, phi) * curRot;
 			break;
 	    case 122:    //Z
-	        curRot = E.inrease(1.03) * curRot;
+	        curRot = E.increase(1.03) * curRot;
         case 120:    //X
-            curRot = E.inrease(0.97) * curRot;
+            curRot = E.decrease(1.03) * curRot;
 		default:
 			break;
 	}
@@ -68,12 +68,12 @@ void DrawInterWindow::onButtonPress(XEvent& event) {
     switch (event.xbutton.button) {
         case Button4:
             //printf("Scrolled up\n");
-            curRot = E.inrease(1.03) * curRot;
+            curRot = E.increase(1.03) * curRot;
             redraw();
             break;
         case Button5:
             //printf("Scrolled down\n");
-            curRot = E.inrease(0.97) * curRot;
+            curRot = E.decrease(1.03) * curRot;
             redraw();
             break;
         default:
