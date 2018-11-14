@@ -26,6 +26,8 @@ public:
 	void drawAxes();
 	void drawCube();
 	void drawInter();
+
+	void static printHelp();
 };
 
 #endif

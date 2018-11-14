@@ -1,5 +1,10 @@
 #include "DrawInterWindow.h"
 
+void DrawInterWindow::printHelp() {
+    printf("You can rotate cube by mouse and arrows\n"
+           "You can increase and decrease cube by mouse, Z and X\n");
+}
+
 I2Point DrawInterWindow::project(R3Point &pt) {
 	R3Point prPoint = curRot(pt);
 	int prX = winSize.x / 5;
@@ -27,7 +32,7 @@ void DrawInterWindow::onKeyPress(XEvent& event) {
     double phi = M_PI / 60;
     KeySym key;
     char keyName[256];
-    int nameLen = XLookupString(&(event.xkey), keyName, 255, &key, 0);
+    XLookupString(&(event.xkey), keyName, 255, &key, 0);
 	switch ((int) key) {
 		case 113:    // q
 			destroyWindow();
@@ -47,14 +52,34 @@ void DrawInterWindow::onKeyPress(XEvent& event) {
 		case 65364:  //down
 			curRot = E.rotate(Oy, phi) * curRot;
 			break;
+	    case 122:    //Z
+	        curRot = E.inrease(1.03) * curRot;
+        case 120:    //X
+            curRot = E.inrease(0.97) * curRot;
 		default:
 			break;
 	}
+	//printf("Key: %d\n", (int) key);
 	redraw();
 }
 
 void DrawInterWindow::onButtonPress(XEvent& event) {
-	curMousePos = I2Point(event.xbutton.x, event.xbutton.y);
+    Rotation E;
+    switch (event.xbutton.button) {
+        case Button4:
+            //printf("Scrolled up\n");
+            curRot = E.inrease(1.03) * curRot;
+            redraw();
+            break;
+        case Button5:
+            //printf("Scrolled down\n");
+            curRot = E.inrease(0.97) * curRot;
+            redraw();
+            break;
+        default:
+            curMousePos = I2Point(event.xbutton.x, event.xbutton.y);
+            break;
+    }
 }
 
 void DrawInterWindow::onMotionNotify(XEvent& event) {

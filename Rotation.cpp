@@ -84,7 +84,7 @@ R3Point Rotation::operator()(R3Point& pt) {
 	return res;
 }
 
-Rotation Rotation::inverse() {
+Rotation Rotation::inverse() { // пока что не работает
 	auto **matrix = new double*[3];
     matrix[0] = new double[3]
             {(*this)[1][1] * (*this)[2][2] - (*this)[1][2] * (*this)[2][1],
@@ -127,4 +127,12 @@ Rotation Rotation::rotate(R3Point& vct, double phi) {
     Rotation res(matrix);
     return res;
 
+}
+
+Rotation Rotation::inrease(double alpha) {
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+            (*this)[i][j] *= alpha;
+
+	return (*this);
 }

@@ -51,7 +51,9 @@ int main() {
     );
     
     w.setBackground("LightGray");
-    
+
+    DrawInterWindow::printHelp();
+
     GWindow::messageLoop();
     
     GWindow::closeX();
